@@ -1,0 +1,17 @@
+{
+  "name": "fyllingenportalen",
+  "version": "1.0.0",
+  "description": "Fyllingen IL Friidrett - portal for okter, ukesplaner og oppfolging av utovere",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
