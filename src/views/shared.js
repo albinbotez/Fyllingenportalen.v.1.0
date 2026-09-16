@@ -1,4 +1,5 @@
 import { navigate } from '../router.js';
+import { isCoach } from '../api/profiles.js';
 
 const links = [
   { path: '/dashboard', label: 'Dashbord' },
@@ -9,8 +10,10 @@ const links = [
   { path: '/suggestions', label: 'Forslag' },
 ];
 
-export function renderNav(navEl) {
-  navEl.innerHTML = links
+export async function renderNav(navEl) {
+  const coach = await isCoach().catch(() => false);
+  const allLinks = coach ? [...links, { path: '/admin', label: 'Admin' }] : links;
+  navEl.innerHTML = allLinks
     .map(l => `<a href="#${l.path}">${l.label}</a>`)
     .join('');
   navEl.addEventListener('click', (e) => {

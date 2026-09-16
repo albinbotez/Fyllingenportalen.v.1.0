@@ -13,12 +13,13 @@ export async function renderHistory(root) {
       <h2>Historikk (siste 90 dager)</h2>
       ${sessions.length ? `
         <table>
-          <thead><tr><th>Dato</th><th>Okt</th><th>Type</th><th>Status</th></tr></thead>
+          <thead><tr><th>Dato</th><th>Okt</th><th>Tid/sted</th><th>Type</th><th>Status</th></tr></thead>
           <tbody>
             ${sessions.map(s => `
               <tr>
                 <td>${formatDate(s.date)}</td>
                 <td><a href="#/session/${s.id}">${s.title || 'Okt'}</a></td>
+                <td>${s.time || '-'}${s.location ? ' @ ' + s.location : ''}</td>
                 <td>${s.type || '-'}</td>
                 <td><span class="badge">${s.status || 'planlagt'}</span></td>
               </tr>`).join('')}

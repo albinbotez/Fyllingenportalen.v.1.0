@@ -8,6 +8,9 @@ import { renderProgression, renderProgressionDetail } from './views/progression.
 import { renderSessionDetail } from './views/sessionDetail.js';
 import { renderSessionForm } from './views/sessionForm.js';
 import { renderSuggestions } from './views/suggestions.js';
+import { renderAdmin } from './views/admin.js';
+import { renderAthleteProfile } from './views/athleteProfile.js';
+import { renderAdminProgressionChart } from './views/adminProgressionChart.js';
 import { renderNav } from './views/shared.js';
 
 registerRoute('/login', renderLogin);
@@ -21,6 +24,9 @@ registerRoute('/session/:id', renderSessionDetail);
 registerRoute('/session/new', renderSessionForm);
 registerRoute('/session/:id/edit', renderSessionForm);
 registerRoute('/suggestions', renderSuggestions);
+registerRoute('/admin', renderAdmin);
+registerRoute('/admin/athlete/:id', renderAthleteProfile);
+registerRoute('/admin/progression', renderAdminProgressionChart);
 
 renderNav(document.getElementById('fp-nav'));
 initRouter('app');

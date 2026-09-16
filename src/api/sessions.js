@@ -1,10 +1,11 @@
 import { supabase } from '../supabaseClient.js';
 
-export async function listSessions({ from, to, athleteId } = {}) {
+export async function listSessions({ from, to, athleteId, groupLevel } = {}) {
   let query = supabase.from('sessions').select('*, session_exercises(*)');
   if (from) query = query.gte('date', from);
   if (to) query = query.lte('date', to);
   if (athleteId) query = query.eq('athlete_id', athleteId);
+  if (groupLevel) query = query.eq('assigned_group', groupLevel);
   const { data, error } = await query.order('date', { ascending: true });
   if (error) throw error;
   return data;

@@ -30,3 +30,19 @@ export async function getRecordHistory(athleteId, discipline) {
   if (error) throw error;
   return data;
 }
+
+export async function listDisciplines() {
+  const { data, error } = await supabase.from('records').select('discipline');
+  if (error) throw error;
+  return [...new Set(data.map(d => d.discipline))].sort();
+}
+
+export async function getRecordHistoryForDiscipline(discipline) {
+  const { data, error } = await supabase
+    .from('records')
+    .select('*, profiles(full_name)')
+    .eq('discipline', discipline)
+    .order('recorded_at', { ascending: true });
+  if (error) throw error;
+  return data;
+}

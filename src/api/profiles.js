@@ -12,6 +12,11 @@ export async function getMyProfile() {
   return data;
 }
 
+export async function isCoach() {
+  const profile = await getMyProfile().catch(() => null);
+  return profile?.role === 'trener' || profile?.role === 'admin';
+}
+
 export async function listAthletes() {
   const { data, error } = await supabase
     .from('profiles')
@@ -20,4 +25,23 @@ export async function listAthletes() {
     .order('full_name');
   if (error) throw error;
   return data;
+}
+
+export async function getAthleteById(id) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function listGroupLevels() {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('group_level')
+    .not('group_level', 'is', null);
+  if (error) throw error;
+  return [...new Set(data.map(d => d.group_level))];
 }

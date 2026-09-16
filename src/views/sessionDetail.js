@@ -13,7 +13,9 @@ export async function renderSessionDetail(root, params) {
   root.innerHTML = `
     <div class="card">
       <h2>${session.title || 'Okt'} <span class="badge">${session.type || 'trening'}</span></h2>
-      <p><strong>Dato:</strong> ${formatDate(session.date)}</p>
+      <p><strong>Dato:</strong> ${formatDate(session.date)} ${session.time ? 'kl. ' + session.time : ''}</p>
+      <p><strong>Sted:</strong> ${session.location || '-'}</p>
+      <p><strong>Tildelt:</strong> ${session.assigned_group ? session.assigned_group : (session.athlete_id ? 'Individuell' : '-')}</p>
       <p><strong>Beskrivelse:</strong> ${session.description || '-'}</p>
       <h3>Ovelser</h3>
       ${session.session_exercises?.length ? `

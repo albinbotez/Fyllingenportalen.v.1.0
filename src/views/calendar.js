@@ -33,7 +33,12 @@ export async function renderCalendar(root) {
       <div class="card">
         <strong>${d.toLocaleDateString('nb-NO', { weekday: 'long' })} ${formatDate(dateStr)}</strong>
         ${daySessions.length
-          ? daySessions.map(s => `<p><a href="#/session/${s.id}">${s.title || 'Okt'}</a> <span class="badge">${s.type || 'trening'}</span></p>`).join('')
+          ? daySessions.map(s => `
+            <p>
+              <a href="#/session/${s.id}">${s.title || 'Okt'}</a>
+              <span class="badge">${s.type || 'trening'}</span>
+              ${s.time ? `<br><small>${s.time}${s.location ? ' - ' + s.location : ''}</small>` : (s.location ? `<br><small>${s.location}</small>` : '')}
+            </p>`).join('')
           : '<p style="opacity:0.6">Ingen okt</p>'}
       </div>`;
   }).join('');

@@ -4,23 +4,23 @@ export function registerRoute(path, renderFn) {
   routes[path] = renderFn;
 }
 
-function matchRoute(hash) {
-  for (const path in routes) {
-    if (path.includes(':')) {
+function matchRoute(path) {
+  for (const routePath in routes) {
+    if (routePath.includes(':')) {
+      const routeParts = routePath.split('/');
       const pathParts = path.split('/');
-      const hashParts = hash.split('/');
-      if (pathParts.length !== hashParts.length) continue;
+      if (routeParts.length !== pathParts.length) continue;
       const params = {};
-      const isMatch = pathParts.every((part, i) => {
+      const isMatch = routeParts.every((part, i) => {
         if (part.startsWith(':')) {
-          params[part.slice(1)] = hashParts[i];
+          params[part.slice(1)] = pathParts[i];
           return true;
         }
-        return part === hashParts[i];
+        return part === pathParts[i];
       });
-      if (isMatch) return { renderFn: routes[path], params };
-    } else if (path === hash) {
-      return { renderFn: routes[path], params: {} };
+      if (isMatch) return { renderFn: routes[routePath], params };
+    } else if (routePath === path) {
+      return { renderFn: routes[routePath], params: {} };
     }
   }
   return null;
@@ -29,16 +29,18 @@ function matchRoute(hash) {
 export function initRouter(rootId) {
   const root = document.getElementById(rootId);
   async function render() {
-    const hash = window.location.hash.slice(1) || '/dashboard';
-    const match = matchRoute(hash);
+    const raw = window.location.hash.slice(1) || '/dashboard';
+    const [path, queryString] = raw.split('?');
+    const queryParams = Object.fromEntries(new URLSearchParams(queryString || ''));
+    const match = matchRoute(path);
     root.innerHTML = '';
     if (match) {
-      await match.renderFn(root, match.params);
+      await match.renderFn(root, { ...match.params, ...queryParams });
     } else {
       root.innerHTML = '<p>Fant ikke siden.</p>';
     }
     document.querySelectorAll('.fp-nav a').forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + hash.split('/')[0]);
+      a.classList.toggle('active', a.getAttribute('href') === '#' + path.split('/')[0] + (path.split('/')[1] ? '/' + path.split('/')[1] : ''));
     });
   }
   window.addEventListener('hashchange', render);
