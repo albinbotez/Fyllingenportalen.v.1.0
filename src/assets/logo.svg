@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <clipPath id="shieldClip">
+      <path d="M20 15 C60 -5 240 -5 280 15 C285 90 285 150 280 190 C270 300 150 390 150 390 C150 390 30 300 20 190 C15 150 15 90 20 15 Z"/>
+    </clipPath>
+  </defs>
+
+  <path d="M20 15 C60 -5 240 -5 280 15 C285 90 285 150 280 190 C270 300 150 390 150 390 C150 390 30 300 20 190 C15 150 15 90 20 15 Z"
+        fill="#F2BA03" stroke="#F2BA03" stroke-width="6"/>
+  <path d="M28 22 C64 4 236 4 272 22 C277 92 277 148 272 187 C263 292 150 378 150 378 C150 378 37 292 28 187 C23 148 23 92 28 22 Z"
+        fill="#FFFFFF"/>
+
+  <g clip-path="url(#shieldClip)">
+    <rect x="15" y="20" width="270" height="95" fill="#FFFFFF"/>
+
+    <rect x="95" y="18" width="20" height="80" rx="4" fill="#2165AC"/>
+    <rect x="185" y="18" width="20" height="80" rx="4" fill="#2165AC"/>
+    <path d="M95 22 C100 12 110 12 115 22 L115 40 L95 40 Z" fill="#2165AC"/>
+    <path d="M185 22 C190 12 200 12 205 22 L205 40 L185 40 Z" fill="#2165AC"/>
+
+    <rect x="15" y="86" width="270" height="30" fill="#FFFFFF" stroke="#2165AC" stroke-width="3"/>
+    <text x="150" y="108" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800"
+          fill="#2165AC" text-anchor="middle" letter-spacing="1">FYLLINGEN</text>
+
+    <path d="M15 118 C15 118 90 250 150 380 C210 250 285 118 285 118 L285 400 L15 400 Z" fill="#2165AC"/>
+
+    <g transform="translate(150,280)">
+      <circle r="62" fill="#FFFFFF" stroke="#F2BA03" stroke-width="4"/>
+      <g stroke="#2165AC" stroke-width="2">
+        <polygon points="0,-34 20,-22 20,2 0,14 -20,2 -20,-22" fill="#FFFFFF"/>
+        <polygon points="0,-34 -20,-22 -34,-40 -14,-52 8,-50" fill="#F2BA03"/>
+        <polygon points="20,-22 20,2 44,10 54,-10 40,-30" fill="#F2BA03"/>
+        <polygon points="-20,-22 -20,2 -44,10 -54,-10 -40,-30" fill="#F2BA03"/>
+        <polygon points="20,2 0,14 4,38 26,34 34,14" fill="#F2BA03"/>
+        <polygon points="-20,2 0,14 -4,38 -26,34 -34,14" fill="#F2BA03"/>
+      </g>
+    </g>
+  </g>
+
+  <path d="M20 15 C60 -5 240 -5 280 15 C285 90 285 150 280 190 C270 300 150 390 150 390 C150 390 30 300 20 190 C15 150 15 90 20 15 Z"
+        fill="none" stroke="#F2BA03" stroke-width="7"/>
+</svg>

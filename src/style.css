@@ -1,7 +1,7 @@
 :root {
-  --fyl-blue: #0C2340;
-  --fyl-blue-light: #1B3A63;
-  --fyl-gold: #F5B700;
+  --fyl-blue: #2165AC;
+  --fyl-blue-light: #3A7FC4;
+  --fyl-gold: #F2BA03;
   --fyl-white: #FFFFFF;
   --fyl-grey: #F4F5F7;
   --fyl-text: #16202B;
@@ -24,21 +24,14 @@ body {
   justify-content: space-between;
   background: var(--fyl-blue);
   color: var(--fyl-white);
-  padding: 14px 24px;
+  padding: 10px 24px;
 }
 
-.fp-logo { display: flex; align-items: center; gap: 10px; }
+.fp-logo { display: flex; align-items: center; gap: 12px; }
 
-.fp-logo-mark {
-  background: var(--fyl-gold);
-  color: var(--fyl-blue);
-  font-weight: 800;
-  padding: 6px 10px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-}
+.fp-logo-img { height: 44px; width: auto; display: block; }
 
-.fp-logo-text { font-weight: 600; }
+.fp-logo-text { font-weight: 700; font-size: 1.05rem; }
 
 .fp-nav { display: flex; gap: 16px; }
 
@@ -57,15 +50,16 @@ body {
   text-align: center;
   padding: 16px;
   font-size: 0.8rem;
-  color: var(--fyl-blue-light);
+  color: var(--fyl-blue);
 }
 
 .card {
   background: var(--fyl-white);
   border-radius: var(--radius);
   padding: 18px;
-  box-shadow: 0 1px 4px rgba(12,35,64,0.08);
+  box-shadow: 0 1px 4px rgba(33,101,172,0.12);
   margin-bottom: 16px;
+  border-top: 3px solid var(--fyl-gold);
 }
 
 .btn {
