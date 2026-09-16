@@ -1,5 +1,6 @@
 import { listSessions } from '../api/sessions.js';
 import { getMyProfile, isCoach } from '../api/profiles.js';
+import { listCompletionsForAthlete } from '../api/completions.js';
 import { formatDate, weekNumber } from '../utils/format.js';
 import { emptyState } from './shared.js';
 
@@ -11,14 +12,20 @@ export async function renderDashboard(root) {
   const in7 = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
   const sessions = await listSessions({ from: today, to: in7 }).catch(() => []);
 
+  const completions = (!coach && profile)
+    ? await listCompletionsForAthlete(profile.id, sessions.map(s => s.id)).catch(() => [])
+    : [];
+  const completionMap = Object.fromEntries(completions.map(c => [c.session_id, c.status]));
+
   const upcomingHtml = sessions.length
-    ? `<table><thead><tr><th>Dato</th><th>Okt</th><th>Tid/sted</th><th>Type</th></tr></thead><tbody>
+    ? `<table><thead><tr><th>Dato</th><th>Okt</th><th>Tid/sted</th><th>Type</th>${!coach ? '<th>Status</th>' : ''}</tr></thead><tbody>
         ${sessions.map(s => `
           <tr>
             <td>${formatDate(s.date)}</td>
-            <td><a href="#/session/${s.id}">${s.title || 'Okt'}</a></td>
+            <td><a href="#/session/${s.id}">Se oktplan: ${s.title || 'Okt'}</a></td>
             <td>${s.time || '-'}${s.location ? ' @ ' + s.location : ''}</td>
             <td><span class="badge">${s.type || 'trening'}</span></td>
+            ${!coach ? `<td>${completionMap[s.id] || 'planlagt'}</td>` : ''}
           </tr>`).join('')}
       </tbody></table>`
     : emptyState('Ingen planlagte okter denne uken.');
@@ -32,7 +39,7 @@ export async function renderDashboard(root) {
       <div class="card">
         <h3>Kommende okter (7 dager)</h3>
         ${upcomingHtml}
-        <a class="btn btn-accent" href="#/session/new" style="margin-top:12px;display:inline-block;">Ny okt</a>
+        ${coach ? '<a class="btn btn-accent" href="#/session/new" style="margin-top:12px;display:inline-block;">Ny okt</a>' : ''}
       </div>
       <div class="card">
         <h3>Snarveier</h3>

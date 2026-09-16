@@ -1,9 +1,12 @@
 import { initRouter, registerRoute } from './router.js';
+import { supabase } from './supabaseClient.js';
+import { renderLanding } from './views/landing.js';
 import { renderDashboard } from './views/dashboard.js';
 import { renderCalendar } from './views/calendar.js';
 import { renderHistory } from './views/history.js';
 import { renderInjuries } from './views/injuries.js';
 import { renderLogin } from './views/login.js';
+import { renderCoachLogin } from './views/coachLogin.js';
 import { renderProgression, renderProgressionDetail } from './views/progression.js';
 import { renderSessionDetail } from './views/sessionDetail.js';
 import { renderSessionForm } from './views/sessionForm.js';
@@ -13,7 +16,9 @@ import { renderAthleteProfile } from './views/athleteProfile.js';
 import { renderAdminProgressionChart } from './views/adminProgressionChart.js';
 import { renderNav } from './views/shared.js';
 
-registerRoute('/login', renderLogin);
+registerRoute('/', renderLanding, { public: true });
+registerRoute('/login', renderLogin, { public: true });
+registerRoute('/trener/login', renderCoachLogin, { public: true });
 registerRoute('/dashboard', renderDashboard);
 registerRoute('/calendar', renderCalendar);
 registerRoute('/history', renderHistory);
@@ -28,5 +33,8 @@ registerRoute('/admin', renderAdmin);
 registerRoute('/admin/athlete/:id', renderAthleteProfile);
 registerRoute('/admin/progression', renderAdminProgressionChart);
 
-renderNav(document.getElementById('fp-nav'));
+const navEl = document.getElementById('fp-nav');
+renderNav(navEl);
+supabase.auth.onAuthStateChange(() => renderNav(navEl));
+
 initRouter('app');
